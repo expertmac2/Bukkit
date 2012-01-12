@@ -2,7 +2,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bukkit</groupId>
     <artifactId>bukkit</artifactId>
+<<<<<<< HEAD
     <version>1.1-R1-CRASHCRAFT</version>
+=======
+    <version>1.1-R1-SNAPSHOT</version>
+>>>>>>> mergeremote/master
     <name>Bukkit</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
