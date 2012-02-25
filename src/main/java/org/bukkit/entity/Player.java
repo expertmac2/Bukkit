@@ -1,6 +1,7 @@
 package org.bukkit.entity;
 
 import java.net.InetSocketAddress;
+
 import org.bukkit.Achievement;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -364,28 +365,6 @@ public interface Player extends HumanEntity, CommandSender, OfflinePlayer, Plugi
     public void setExp(float exp);
 
     /**
-     * Gets the players current experience points towards the next level.
-     * <p>
-     * This is a percentage value. 0 is "no progress" and 1 is "next level".
-     *
-     * @return Current experience points
-     * @deprecated use {@link #getExp()} - this method is unsafe to use!
-     */
-    @Deprecated
-    public int getExperience();
-
-    /**
-     * Sets the players current experience points towards the next level
-     * <p>
-     * This is a percentage value. 0 is "no progress" and 1 is "next level".
-     *
-     * @param exp New experience points
-     * @deprecated use {@link #setExp(float)} - this method is unsafe to use!
-     */
-    @Deprecated
-    public void setExperience(int exp);
-
-    /**
      * Gets the players current experience level
      *
      * @return Current experience level
@@ -489,5 +468,27 @@ public interface Player extends HumanEntity, CommandSender, OfflinePlayer, Plugi
      * @param flight If flight should be allowed.
      */
     public void setAllowFlight(boolean flight);
+
+    /**
+     * Hides a player from this player
+     *
+     * @param player Player to hide
+     */
+    public void hidePlayer(Player player);
+
+    /**
+     * Allows this player to see a player that was previously hidden
+     *
+     * @param player Player to show
+     */
+    public void showPlayer(Player player);
+
+    /**
+     * Checks to see if a player has been hidden from this player
+     *
+     * @param player Player to check
+     * @return True if the provided player is not being hidden from this player
+     */
+    public boolean canSee(Player player);
 
 }

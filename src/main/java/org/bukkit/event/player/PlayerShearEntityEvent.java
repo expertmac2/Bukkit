@@ -1,21 +1,22 @@
-package org.bukkit.event.entity;
+package org.bukkit.event.player;
 
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
-@SuppressWarnings("serial")
-public class EndermanPickupEvent extends EntityEvent implements Cancellable {
+/**
+ * Called when a player shears an entity
+ */
+public class PlayerShearEntityEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-
     private boolean cancel;
-    private Block block;
+    private final Entity what;
 
-    public EndermanPickupEvent(Entity what, Block block) {
-        super(Type.ENDERMAN_PICKUP, what);
-        this.block = block;
+    public PlayerShearEntityEvent(final Player who, final Entity what) {
+        super(who);
         this.cancel = false;
+        this.what = what;
     }
 
     public boolean isCancelled() {
@@ -27,12 +28,12 @@ public class EndermanPickupEvent extends EntityEvent implements Cancellable {
     }
 
     /**
-     * Get the block that the enderman is going to pick up.
+     * Gets the entity the player is shearing
      *
-     * @return block the enderman is about to pick up
+     * @return the entity the player is shearing
      */
-    public Block getBlock() {
-        return block;
+    public Entity getEntity() {
+        return what;
     }
 
     @Override
@@ -43,4 +44,5 @@ public class EndermanPickupEvent extends EntityEvent implements Cancellable {
     public static HandlerList getHandlerList() {
         return handlers;
     }
+
 }

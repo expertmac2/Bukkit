@@ -1,13 +1,16 @@
 package org.bukkit;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.Validate;
+
+import com.google.common.collect.Maps;
 
 /**
  * All supported color values for chat
  */
 public enum ChatColor {
-
     /**
      * Represents black
      */
@@ -77,24 +80,19 @@ public enum ChatColor {
      */
     MAGIC('k', 0x10);
 
+    public static final char COLOR_CHAR = '\u00A7';
+    private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + String.valueOf(COLOR_CHAR) + "[0-9A-FK]");
+
     private final int intCode;
     private final char code;
-    private final static Map<Integer, ChatColor> colors = new HashMap<Integer, ChatColor>();
-    private final static Map<Character, ChatColor> lookup = new HashMap<Character, ChatColor>();
+    private final String toString;
+    private final static Map<Integer, ChatColor> BY_ID = Maps.newHashMap();
+    private final static Map<Character, ChatColor> BY_CHAR = Maps.newHashMap();
 
     private ChatColor(char code, int intCode) {
         this.code = code;
         this.intCode = intCode;
-    }
-
-    /**
-     * Gets the data value associated with this color
-     *
-     * @return An integer value of this color code
-     * @deprecated Use {@link #getChar()}
-     */
-    public int getCode() {
-        return intCode;
+        this.toString = new String(new char[] {COLOR_CHAR, code});
     }
 
     /**
@@ -108,18 +106,7 @@ public enum ChatColor {
 
     @Override
     public String toString() {
-        return String.format("\u00A7%c", code);
-    }
-
-    /**
-     * Gets the color represented by the specified color code
-     *
-     * @param code Code to check
-     * @return Associative {@link org.bukkit.ChatColor} with the given code, or null if it doesn't exist
-     * @deprecated Use {@link #getByChar(char)}
-     */
-    public static ChatColor getByCode(final int code) {
-        return colors.get(code);
+        return toString;
     }
 
     /**
@@ -129,7 +116,7 @@ public enum ChatColor {
      * @return Associative {@link org.bukkit.ChatColor} with the given code, or null if it doesn't exist
      */
     public static ChatColor getByChar(char code) {
-        return lookup.get(code);
+        return BY_CHAR.get(code);
     }
 
     /**
@@ -139,7 +126,10 @@ public enum ChatColor {
      * @return Associative {@link org.bukkit.ChatColor} with the given code, or null if it doesn't exist
      */
     public static ChatColor getByChar(String code) {
-        return lookup.get(code.charAt(0));
+        Validate.notNull(code, "Code cannot be null");
+        Validate.isTrue(code.length() > 0, "Code must have at least one char");
+
+        return BY_CHAR.get(code.charAt(0));
     }
 
     /**
@@ -153,13 +143,13 @@ public enum ChatColor {
             return null;
         }
 
-        return input.replaceAll("(?i)\u00A7[0-9A-FK]", "");
+        return STRIP_COLOR_PATTERN.matcher(input).replaceAll("");
     }
 
     static {
-        for (ChatColor color : ChatColor.values()) {
-            colors.put(color.getCode(), color);
-            lookup.put(color.getChar(), color);
+        for (ChatColor color : values()) {
+            BY_ID.put(color.intCode, color);
+            BY_CHAR.put(color.code, color);
         }
     }
 }
