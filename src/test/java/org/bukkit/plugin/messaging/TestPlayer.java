@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.conversations.Conversation;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
@@ -555,6 +556,10 @@ public class TestPlayer implements Player {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public void sendMessage(String[] messages) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public boolean isOnline() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -716,6 +721,22 @@ public class TestPlayer implements Player {
     }
 
     public boolean setWindowProperty(Property prop, int value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean isConversing() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void acceptConversationInput(String input) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean beginConversation(Conversation conversation) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void abandonConversation(Conversation conversation) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

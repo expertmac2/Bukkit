@@ -14,6 +14,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.help.HelpMap;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -286,7 +287,7 @@ public interface Server extends PluginMessageRecipient {
      * If the world is already loaded, it will just return the equivalent of
      * getWorld(creator.name()).
      *
-     * @param options Options to use when creating the world
+     * @param creator The options to use when creating the world.
      * @return Newly created or loaded world
      */
     public World createWorld(WorldCreator creator);
@@ -563,6 +564,13 @@ public interface Server extends PluginMessageRecipient {
      * @return Messenger responsible for this server.
      */
     public Messenger getMessenger();
+
+    /**
+     * Gets the {@link HelpMap} providing help topics for this server.
+     *
+     * @return The server's HelpMap.
+     */
+    public HelpMap getHelpMap();
 
     /**
      * Creates an empty inventory of the specified type. If the type is {@link InventoryType#CHEST},
