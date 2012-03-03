@@ -12,6 +12,7 @@ import org.bukkit.generator.ChunkGenerator;
 import com.avaje.ebean.EbeanServer;
 
 public class TestPlugin extends PluginBase {
+	
     private boolean enabled = true;
 
     final private String pluginName;

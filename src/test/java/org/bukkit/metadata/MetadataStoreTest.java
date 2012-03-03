@@ -13,7 +13,9 @@ public class MetadataStoreTest {
     private Plugin pluginX = new TestPlugin("x");
     private Plugin pluginY = new TestPlugin("y");
 
-    StringMetadataStore subject = new StringMetadataStore();
+    //StringMetadataStore subject = new StringMetadataStore();
+    
+    /*
 
     @Test
     public void testMetadataStore() {
@@ -122,4 +124,6 @@ public class MetadataStoreTest {
             return c;
         }
     }
+    
+    */
 }
