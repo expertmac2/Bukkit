@@ -692,14 +692,21 @@ public interface World extends PluginMessageRecipient, Metadatable {
 
     /**
      * Gets the biome for the given block coordinates.
-     * <p />
-     * It is safe to run this method when the block does not exist, it will not create the block.
      *
      * @param x X coordinate of the block
      * @param z Z coordinate of the block
      * @return Biome of the requested block
      */
-    public Biome getBiome(int x, int z);
+    Biome getBiome(int x, int z);
+
+    /**
+     * Sets the biome for the given block coordinates
+     *
+     * @param x X coordinate of the block
+     * @param z Z coordinate of the block
+     * @param bio new Biome type for this block
+     */
+    void setBiome(int x, int z, Biome bio);
 
     /**
      * Gets the temperature for the given block coordinates.
@@ -887,6 +894,48 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @param ticksPerMonsterSpawns the ticks per monster spawns value you want to set the world to
      */
     public void setTicksPerMonsterSpawns(int ticksPerMonsterSpawns);
+
+    /**
+     * Gets limit for number of monsters that can spawn in a chunk in this world
+     * @returns The monster spawn limit
+     */
+    int getMonsterSpawnLimit();
+
+    /**
+     * Sets the limit for number of monsters that can spawn in a chunk in this world
+     * <p />
+     * <b>Note:</b>
+     * If set to a negative number the world will use the server-wide spawn limit instead.
+     */
+    void setMonsterSpawnLimit(int limit);
+
+    /**
+     * Gets the limit for number of animals that can spawn in a chunk in this world
+     * @returns The animal spawn limit
+     */
+    int getAnimalSpawnLimit();
+
+    /**
+     * Sets the limit for number of animals that can spawn in a chunk in this world
+     * <p />
+     * <b>Note:</b>
+     * If set to a negative number the world will use the server-wide spawn limit instead.
+     */
+    void setAnimalSpawnLimit(int limit);
+
+    /**
+     * Gets the limit for number of water animals that can spawn in a chunk in this world
+     * @returns The water animal spawn limit
+     */
+    int getWaterAnimalSpawnLimit();
+
+    /**
+     * Sets the limit for number of water animals that can spawn in a chunk in this world
+     * <p />
+     * <b>Note:</b>
+     * If set to a negative number the world will use the server-wide spawn limit instead.
+     */
+    void setWaterAnimalSpawnLimit(int limit);
 
     /**
      * Represents various map environment types that a world may be

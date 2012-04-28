@@ -18,25 +18,23 @@ public class MetadataStoreTest {
 
     @Test
     public void testMetadataStore() {
-    	/*
         subject.setMetadata("subject", "key", new FixedMetadataValue(pluginX, 10));
 
         assertTrue(subject.hasMetadata("subject", "key"));
         List<MetadataValue> values = subject.getMetadata("subject", "key");
-        assertEquals(10, values.get(0).value()); */
+        assertEquals(10, values.get(0).value());
     	
     }
 
     @Test
     public void testMetadataNotPresent() {
-    	/*
         assertFalse(subject.hasMetadata("subject", "key"));
         List<MetadataValue> values = subject.getMetadata("subject", "key");
-        assertTrue(values.isEmpty());*/
+        assertTrue(values.isEmpty());
     }
 
     @Test
-    public void testInvalidateAll() {/*
+    public void testInvalidateAll() {
         final Counter counter = new Counter();
 
         subject.setMetadata("subject", "key", new LazyMetadataValue(pluginX, new Callable<Object>() {
@@ -50,11 +48,11 @@ public class MetadataStoreTest {
         subject.getMetadata("subject", "key").get(0).value();
         subject.invalidateAll(pluginX);
         subject.getMetadata("subject", "key").get(0).value();
-        assertEquals(2, counter.value()); */
+        assertEquals(2, counter.value());
     }
 
     @Test
-    public void testInvalidateAllButActuallyNothing() { /*
+    public void testInvalidateAllButActuallyNothing() {
         final Counter counter = new Counter();
 
         subject.setMetadata("subject", "key", new LazyMetadataValue(pluginX, new Callable<Object>() {
@@ -68,11 +66,11 @@ public class MetadataStoreTest {
         subject.getMetadata("subject", "key").get(0).value();
         subject.invalidateAll(pluginY);
         subject.getMetadata("subject", "key").get(0).value();
-        assertEquals(1, counter.value()); */
+        assertEquals(1, counter.value());
     }
 
     @Test
-    public void testMetadataReplace() { /*
+    public void testMetadataReplace() {
         subject.setMetadata("subject", "key", new FixedMetadataValue(pluginX, 10));
         subject.setMetadata("subject", "key", new FixedMetadataValue(pluginY, 10));
         subject.setMetadata("subject", "key", new FixedMetadataValue(pluginX, 20));
@@ -84,28 +82,43 @@ public class MetadataStoreTest {
             if (mv.getOwningPlugin().equals(pluginY)) {
                 assertEquals(10, mv.value());
             }
-        } */
+        }
     }
 
     @Test
-    public void testMetadataRemove() { /*
+    public void testMetadataRemove() {
         subject.setMetadata("subject", "key", new FixedMetadataValue(pluginX, 10));
         subject.setMetadata("subject", "key", new FixedMetadataValue(pluginY, 20));
         subject.removeMetadata("subject", "key", pluginX);
 
         assertTrue(subject.hasMetadata("subject", "key"));
         assertEquals(1, subject.getMetadata("subject", "key").size());
-        assertEquals(20, subject.getMetadata("subject", "key").get(0).value()); */
+        assertEquals(20, subject.getMetadata("subject", "key").get(0).value());
+    }
+
+    public void testMetadataRemoveLast() {
+        subject.setMetadata("subject", "key", new FixedMetadataValue(pluginX, 10));
+        subject.removeMetadata("subject", "key", pluginX);
+
+        assertFalse(subject.hasMetadata("subject", "key"));
+        assertEquals(0, subject.getMetadata("subject", "key").size());
     }
 
     @Test
-    public void testMetadataRemoveForNonExistingPlugin() { /*
+    public void testMetadataRemoveForNonExistingPlugin() {
         subject.setMetadata("subject", "key", new FixedMetadataValue(pluginX, 10));
         subject.removeMetadata("subject", "key", pluginY);
 
         assertTrue(subject.hasMetadata("subject", "key"));
         assertEquals(1, subject.getMetadata("subject", "key").size());
-        assertEquals(10, subject.getMetadata("subject", "key").get(0).value()); */
+        assertEquals(10, subject.getMetadata("subject", "key").get(0).value());
+    }
+    
+    @Test
+    public void testHasMetadata() {
+        subject.setMetadata("subject", "key", new FixedMetadataValue(pluginX, 10));
+        assertTrue(subject.hasMetadata("subject", "key"));
+        assertFalse(subject.hasMetadata("subject", "otherKey"));
     }
 
     private class StringMetadataStore extends MetadataStoreBase<String> implements MetadataStore<String> {
