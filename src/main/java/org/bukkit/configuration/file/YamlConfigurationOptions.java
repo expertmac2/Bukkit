@@ -1,5 +1,7 @@
 package org.bukkit.configuration.file;
 
+import org.apache.commons.lang.Validate;
+
 /**
  * Various settings for controlling the input and output of a {@link YamlConfiguration}
  */
@@ -41,7 +43,7 @@ public class YamlConfigurationOptions extends FileConfigurationOptions {
 
     /**
      * Gets how much spaces should be used to indent each line.
-     * <p>
+     * <p />
      * The minimum value this may be is 2, and the maximum is 9.
      *
      * @return How much to indent by
@@ -52,16 +54,15 @@ public class YamlConfigurationOptions extends FileConfigurationOptions {
 
     /**
      * Sets how much spaces should be used to indent each line.
-     * <p>
+     * <p />
      * The minimum value this may be is 2, and the maximum is 9.
      *
      * @param value New indent
      * @return This object, for chaining
      */
     public YamlConfigurationOptions indent(int value) {
-        if ((indent < 2) || (value > 9)) {
-            throw new IllegalArgumentException("Indent must be between 1 and 10 characters");
-        }
+        Validate.isTrue(value >= 2, "Indent must be at least 2 characters");
+        Validate.isTrue(value <= 9, "Indent cannot be greater than 9 characters");
 
         this.indent = value;
         return this;

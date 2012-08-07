@@ -1,6 +1,8 @@
 package org.bukkit.configuration.file;
 
 import com.google.common.io.Files;
+
+import org.apache.commons.lang.Validate;
 import org.bukkit.configuration.InvalidConfigurationException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +38,7 @@ public abstract class FileConfiguration extends MemoryConfiguration {
 
     /**
      * Saves this {@link FileConfiguration} to the specified location.
-     * <p>
+     * <p />
      * If the file does not exist, it will be created. If already exists, it will
      * be overwritten. If it cannot be overwritten or created, an exception will be thrown.
      *
@@ -45,9 +47,7 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException Thrown when file is null.
      */
     public void save(File file) throws IOException {
-        if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
-        }
+        Validate.notNull(file, "File cannot be null");
 
         Files.createParentDirs(file);
 
@@ -64,7 +64,7 @@ public abstract class FileConfiguration extends MemoryConfiguration {
 
     /**
      * Saves this {@link FileConfiguration} to the specified location.
-     * <p>
+     * <p />
      * If the file does not exist, it will be created. If already exists, it will
      * be overwritten. If it cannot be overwritten or created, an exception will be thrown.
      *
@@ -73,9 +73,7 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException Thrown when file is null.
      */
     public void save(String file) throws IOException {
-        if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
-        }
+        Validate.notNull(file, "File cannot be null");
 
         save(new File(file));
     }
@@ -89,10 +87,10 @@ public abstract class FileConfiguration extends MemoryConfiguration {
 
     /**
      * Loads this {@link FileConfiguration} from the specified location.
-     * <p>
+     * <p />
      * All the values contained within this configuration will be removed, leaving
      * only settings and defaults, and the new values will be loaded from the given file.
-     * <p>
+     * <p />
      * If the file cannot be loaded for any reason, an exception will be thrown.
      *
      * @param file File to load from.
@@ -102,16 +100,14 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException Thrown when file is null.
      */
     public void load(File file) throws FileNotFoundException, IOException, InvalidConfigurationException {
-        if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
-        }
+        Validate.notNull(file, "File cannot be null");
 
         load(new FileInputStream(file));
     }
 
     /**
      * Loads this {@link FileConfiguration} from the specified stream.
-     * <p>
+     * <p />
      * All the values contained within this configuration will be removed, leaving
      * only settings and defaults, and the new values will be loaded from the given stream.
      *
@@ -121,13 +117,12 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException Thrown when stream is null.
      */
     public void load(InputStream stream) throws IOException, InvalidConfigurationException {
-        if (stream == null) {
-            throw new IllegalArgumentException("Stream cannot be null");
-        }
+        Validate.notNull(stream, "Stream cannot be null");
 
         InputStreamReader reader = new InputStreamReader(stream);
         StringBuilder builder = new StringBuilder();
         BufferedReader input = new BufferedReader(reader);
+
 
         try {
             String line;
@@ -145,10 +140,10 @@ public abstract class FileConfiguration extends MemoryConfiguration {
 
     /**
      * Loads this {@link FileConfiguration} from the specified location.
-     * <p>
+     * <p />
      * All the values contained within this configuration will be removed, leaving
      * only settings and defaults, and the new values will be loaded from the given file.
-     * <p>
+     * <p />
      * If the file cannot be loaded for any reason, an exception will be thrown.
      *
      * @param file File to load from.
@@ -158,19 +153,17 @@ public abstract class FileConfiguration extends MemoryConfiguration {
      * @throws IllegalArgumentException Thrown when file is null.
      */
     public void load(String file) throws FileNotFoundException, IOException, InvalidConfigurationException {
-        if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
-        }
+        Validate.notNull(file, "File cannot be null");
 
         load(new File(file));
     }
 
     /**
      * Loads this {@link FileConfiguration} from the specified string, as opposed to from file.
-     * <p>
+     * <p />
      * All the values contained within this configuration will be removed, leaving
      * only settings and defaults, and the new values will be loaded from the given string.
-     * <p>
+     * <p />
      * If the string is invalid in any way, an exception will be thrown.
      *
      * @param contents Contents of a Configuration to load.
@@ -181,7 +174,7 @@ public abstract class FileConfiguration extends MemoryConfiguration {
 
     /**
      * Compiles the header for this {@link FileConfiguration} and returns the result.
-     * <p>
+     * <p />
      * This will use the header from {@link #options()} -> {@link FileConfigurationOptions#header()},
      * respecting the rules of {@link FileConfigurationOptions#copyHeader()} if set.
      *
